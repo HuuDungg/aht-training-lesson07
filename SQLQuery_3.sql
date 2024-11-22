@@ -1,7 +1,28 @@
-SELECT * FROM customers
+create DATABASE 
+use bank
 
-SELECT customerName, phone, city, country FROM customers
+CREATE TABLE Customers (
+    customer_number INT PRIMARY KEY, 
+    fullname VARCHAR(100),
+    address VARCHAR(255),
+    email VARCHAR(100),
+    phone VARCHAR(15)
+);
 
-SELECT * FROM customers WHERE customerName = 'Atelier Graphique'
+CREATE TABLE Accounts (
+    account_number INT PRIMARY KEY, 
+    account_type VARCHAR(50),
+    date DATE,
+    balance DECIMAL(15, 2),
+    customer_number INT,          
+    FOREIGN KEY (customer_number) REFERENCES Customers(customer_number)
+);
 
-SELECT * FROM customers WHERE customername like '%A%'
+CREATE TABLE Transactions (
+    tran_number INT PRIMARY KEY,    
+    account_number INT,            
+    date DATETIME,
+    amounts DECIMAL(15, 2),
+    descriptions TEXT,
+    FOREIGN KEY (account_number) REFERENCES Accounts(account_number)
+);
